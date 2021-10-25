@@ -1,0 +1,55 @@
+<app-titulo [titulo]="titulo"></app-titulo>
+
+<div class="col-sm-6" *ngIf="JogoSelecionado">
+  Jogo Selecionado: {{JogoSelecionado}}
+  <br>
+
+  <div class="mt-1"><button class="text-dark btn btn-sm btn-outline-warning" (click)="voltar()">Voltar</button></div>
+</div>
+<form [formGroup]="jogoForm" (submit)="jogoSubmit">
+  <div class="Form-group">
+    <label for="formGroupExampleInput">Nome</label>
+    <input type="text" formControlName="nome" class="form-control">
+  </div>
+  <div class="form formGroup">
+    <hr>
+    <button class=" btn btn-sucess" [disabled]="!jogoForm.valid">enviar</button>
+  </div>
+</form>
+
+<div *ngIf="!JogoSelecionado">Nenhum jogo selecionado.</div>
+
+<table class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">visualizar</th>
+      <th scope="col">#</th>
+      <th scope="col">nome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let Jogo of Jogos">
+      <button (click)="jogoSelect(Jogo)" class="text-dark btn btn-sm btn-outline-warning">visualizar</button>
+      <td scope="row">{{Jogo.id}}</td>
+      <td>{{Jogo.nome}}</td>
+      <td>
+        <div class="btn-group">
+          <button (click)="openModal(template)" class="btn btn-sm btn-outline-primary">editar</button>
+          <button class="btn btn-sm btn-outline-danger">excluir</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #template>
+  <div class="modal-body">
+    this is a modal.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn pull-right" aria-label="Close" (click)="modalRef.hide()">
+      FECHAR
+    </button>
+
+  </div>
+</ng-template>
